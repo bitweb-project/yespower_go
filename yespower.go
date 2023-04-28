@@ -193,8 +193,8 @@ func yespower(version string, in []byte, N, r int, persToken string) string {
 }
 
 func smix(B []uint32, r, N int, V, X []uint32, ctx *PwxformCtx) {
-	nloop_all := (N + 2) / 3
-	nloop_rw := nloop_all
+	var nloop_all uint32 = uint32((N + 2) / 3)
+	var nloop_rw uint32 = nloop_all
 
 	// Round up to even
 	nloop_all++
@@ -217,8 +217,8 @@ func smix(B []uint32, r, N int, V, X []uint32, ctx *PwxformCtx) {
 	smix1(B, 1, ctx.sBytes/128, ctx.S, X, ctx, true)
 	smix1(B, r, N, V, X, ctx, false)
 
-	smix2(B, r, N, nloop_rw, V, X, ctx)
-	smix2(B, r, N, nloop_all-nloop_rw, V, X, ctx)
+	smix2(B, r, N, int(nloop_rw), V, X, ctx)
+	smix2(B, r, N, int(nloop_all-nloop_rw), V, X, ctx)
 }
 
 func smix1(B []uint32, r, N int, V, X []uint32, ctx *PwxformCtx, init bool) {
